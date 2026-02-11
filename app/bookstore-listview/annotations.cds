@@ -27,13 +27,13 @@ annotate service.Books with @(
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'Price',
-                Value : price,
+                Value : status_code,
+                Criticality : status.criticality,
             },
             {
                 $Type : 'UI.DataField',
-                Value : status_code,
-                Criticality : status.criticality,
+                Label : 'Price',
+                Value : price,
             },
             {
                 $Type : 'UI.DataField',
@@ -45,15 +45,15 @@ annotate service.Books with @(
     UI.Facets : [
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
-            Label : 'General Information',
-            Target : '@UI.FieldGroup#GeneratedGroup',
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
             Label : 'Entry Info',
             ID : 'EntryInfo',
             Target : '@UI.FieldGroup#EntryInfo',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'GeneratedFacet1',
+            Label : 'General Information',
+            Target : '@UI.FieldGroup#GeneratedGroup',
         },
         {
             $Type : 'UI.ReferenceFacet',
