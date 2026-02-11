@@ -18,6 +18,11 @@ annotate service.Books with @(
                 Label : 'Price',
                 Value : price,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : status_code,
+                Criticality : status.criticality,
+            },
         ],
     },
     UI.Facets : [
@@ -43,6 +48,12 @@ annotate service.Books with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
+            Value : status_code,
+            Label : 'Status',
+            Criticality : status.criticality,
+        },
+        {
+            $Type : 'UI.DataField',
             Label : 'Book name',
             Value : title,
         },
@@ -53,8 +64,8 @@ annotate service.Books with @(
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Price',
-            Value : price,
+            Value : stock,
+            Label : 'Stock',
         },
         {
             $Type : 'UI.DataField',
@@ -68,11 +79,12 @@ annotate service.Books with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : createdAt,
+            Label : 'Price',
+            Value : price,
         },
     ],
     UI.SelectionFields : [
-        price,
+        status_code,
     ],
     UI.HeaderInfo : {
         TypeName : 'Book',
@@ -105,6 +117,19 @@ annotate service.Books with @(
             {
                 $Type : 'UI.DataField',
                 Value : createdBy,
+            },
+        ],
+    },
+    UI.HeaderFacets : [
+        
+    ],
+    UI.FieldGroup #Header : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : status_code,
+                Criticality : status.criticality,
             },
         ],
     },
@@ -151,4 +176,30 @@ annotate service.Chapters with @(
         },
     ]
 );
+
+annotate service.Books with {
+    status @(
+        Common.Text : status.displayText,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+        Common.Label : 'Status',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'BookStatus',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : status_code,
+                    ValueListProperty : 'code',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+    )
+};
+
+annotate service.BookStatus with {
+    code @(
+        Common.Text : displayText,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+)};
 
